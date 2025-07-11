@@ -1,0 +1,24 @@
+{
+  "name": "learning-backend",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000l\u0000e\u0000a\u0000r\u0000n\u0000i\u0000n\u0000g\u0000-\u0000b\u0000a\u0000c\u0000k\u0000e\u0000n\u0000d\u0000\r\u0000 \u0000",
+  "homepage": "https://github.com/engineershoaibakhter/learning-backend#readme",
+  "bugs": {
+    "url": "https://github.com/engineershoaibakhter/learning-backend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/engineershoaibakhter/learning-backend.git"
+  },
+  "license": "ISC",
+  "author": "Shoaib Akhter",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.0",
+    "mongoose": "^8.16.3"
+  }
+}
