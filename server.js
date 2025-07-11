@@ -18,29 +18,17 @@ mongoose.connect(uri)
 async function insertSampleData() {
   try {
     // Sample employee data
-    const employees = [
-      {
-        emp_name: "John Doe",
-        department: "Engineering",
-        salary: 75000,
-        onsite: true
-      },
-      {
-        emp_name: "Jane Smith",
-        department: "Marketing",
-        salary: 65000,
-        onsite: false
-      },
-      {
-        emp_name: "Mike Johnson",
-        department: "HR",
-        salary: 55000,
-        onsite: true
-      }
-    ];
+    // const updateOneEmployee ={
+    //   {emp_name:"Shoaib Akhter"},
+    //   {emp_name: "Shoaib Qadri", age: 25, location: "Houston", email: "matta@somewhere.com"} 
+    // }
+
 
     // Insert multiple documents
-    const result = await Employee.insertMany(employees);
+    await Employee.deleteMany(      
+      {age:{$lte:25}}
+    );
+    const result= await Employee.find()
     console.log('Sample data inserted successfully:', result);
     
     // Close the connection after insertion

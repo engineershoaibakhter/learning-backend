@@ -9,16 +9,28 @@ const employeeSchema = new Schema({
   },
   department: {
     type: String,
-    required: true,
+    required: false,
   },
   salary: {
     type: Number,
-    required: true,
+    required: false,
+  },
+  age:{
+    type:Number,
+    required:false,
   },
   onsite: {
     type: Boolean,
     required: false,
   },
+  location: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  }
 });
 
-module.exports = mongoose.model("Employee", employeeSchema);
+module.exports = mongoose.model("employees", employeeSchema);
