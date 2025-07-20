@@ -15,6 +15,8 @@ const getTodos=async (req,res)=>{
 }
 
 const updateTodo=async (req,res)=>{
+  console.log("req: ",req.params)
+  console.log("req: ",req.user)
   const todo=await Todo.findOneAndUpdate(
     {_id:req.params.id,user:req.user._id},
     req.body,

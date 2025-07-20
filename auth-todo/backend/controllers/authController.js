@@ -6,46 +6,59 @@ const sendEmail=require('../utils/sendEmail')
 const generateToken = require("../utils/generateToken");
 
 const register = async (req, res) => {
-  const { name, email, password, role } = req.body;
+  try {
+    const { name, email, password, role } = req.body;
+    console.log(`name ${name} and email ${email} and password ${password} and role ${role} `)
 
-  const existingUser = await User.findOne({ email });
-  if (existingUser)
-    return res.status(400).json({ message: "Email already exists" });
+    const existingUser = await User.findOne({ email });
+    if (existingUser)
+      return res.status(400).json({ message: "Email already exists" });
 
-  const hashedPassword = await bcrypt.hash(password, 10);
-  const user = await User.create({
-    name,
-    email,
-    password: hashedPassword,
-    role,
-  });
-  const token = generateToken(user._id);
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await User.create({
+      name,
+      email,
+      password: hashedPassword,
+      role,
+    });
+    console.log("user: ",user)
+    const token = generateToken(user._id);
+    console.log("token from register page: ",token)
 
-  res.cookie("token", token, {
-    httpOnly: true,
-    sameSite: "strict",
-    secure: true,
-  });
-  res.status(201).json({ user });
+    res.cookie("token", token, {
+      httpOnly: true,
+      sameSite: "strict",
+      secure: process.env.NODE_ENV === 'production',
+    });
+    res.status(201).json({ user });
+  } catch (error) {
+    console.error("Registration error:", error);
+    res.status(500).json({ message: "Server error during registration" });
+  }
 };
 
 const login = async (req, res) => {
-  const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
 
-  const user = await User.findOne({ email });
-  if (!user) return res.status(404).json({ message: "User not fount" });
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ message: "User not found" });
 
-  const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
 
-  const token = generateToken(user._id);
-  res.cookie("token", token, {
-    httpOnly:true,
-    sameSite:'strict',
-    secure:true
-  });
+    const token = generateToken(user._id);
+    res.cookie("token", token, {
+      httpOnly: true,
+      sameSite: 'strict',
+      secure: process.env.NODE_ENV === 'production'
+    });
 
-  res.status(200).json({user});
+    res.status(200).json({ user });
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).json({ message: "Server error during login" });
+  }
 };
 
 const logout=(req,res)=>{
@@ -57,9 +70,12 @@ const forgotPassword=async (req,res)=>{
   const {email}=req.body;
   try {
     const user=await User.findOne({email});
-    if(!user) return res.status(400).json({message:"user not fount"});
+    console.log("user: ",user)
+    if(!user) return res.status(400).json({message:"User not found"});
 
     const resetToken=crypto.randomBytes(32).toString('hex');
+    console.log("resetToken: ",resetToken)
+
     user.resetToken=resetToken;
     user.resetTokenExpires=Date.now() + 15 * 60 *1000;
     await user.save();
@@ -69,7 +85,8 @@ const forgotPassword=async (req,res)=>{
 
     res.json({message:"Reset Link sent to your email"})
   } catch (error) {
-    res.status(500).send("server error")
+    console.error("Forgot password error:", error);
+    res.status(500).json({message:"Server error occurred while sending reset email"})
   }
 }
 
@@ -97,7 +114,8 @@ const resetPassword=async (req,res)=>{
     
     res.json({ message: "Password updated successfully" });
   } catch (err) {
-    res.status(500).send("Server error");
+    console.error("Reset password error:", err);
+    res.status(500).json({ message: "Server error during password reset" });
   }
 
 }
