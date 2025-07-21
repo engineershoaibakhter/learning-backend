@@ -51,10 +51,10 @@ const login = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       sameSite: 'strict',
-      secure: process.env.NODE_ENV === 'production'
+      secure: true,
     });
 
-    res.status(200).json({ user });
+    res.status(200).json({ user,token });
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).json({ message: "Server error during login" });

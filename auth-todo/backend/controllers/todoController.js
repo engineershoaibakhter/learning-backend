@@ -1,6 +1,7 @@
 const Todo=require('../models/Todo');
 
 const createTodo=async (req,res)=>{
+  console.log("req.shoaib: ",req.shoaib)
   const todo=await Todo.create({
     ...req.body,
     user:req.user._id
