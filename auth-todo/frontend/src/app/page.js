@@ -17,9 +17,9 @@ export default function Home() {
 
   const handleGetStarted = () => {
     if (user) {
-      router.push('/components/dashboard')
+      router.push('/dashboard')
     } else {
-      router.push('/components/auth/register')
+      router.push('/register')
     }
   }
 
@@ -35,7 +35,7 @@ export default function Home() {
             <div className="flex items-center space-x-4">
               <span className="text-white">Welcome, {user.name}</span>
               <Link 
-                href="/components/dashboard"
+                href="/dashboard"
                 className="bg-white text-indigo-600 px-4 py-2 rounded-lg font-medium hover:bg-gray-100 transition duration-150"
               >
                 Dashboard
@@ -44,13 +44,13 @@ export default function Home() {
           ) : (
             <div className="space-x-4">
               <Link 
-                href="/components/auth/login"
+                href="/login"
                 className="text-white hover:text-gray-300 transition duration-150"
               >
                 Login
               </Link>
               <Link 
-                href="/components/auth/register"
+                href="/register"
                 className="bg-white text-indigo-600 px-4 py-2 rounded-lg font-medium hover:bg-gray-100 transition duration-150"
               >
                 Sign Up

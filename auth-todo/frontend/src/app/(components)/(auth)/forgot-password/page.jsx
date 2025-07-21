@@ -109,7 +109,7 @@ const ForgotPasswordPage = () => {
 
           <div className="text-center">
             <Link
-              href="/components/auth/login"
+              href="/login"
               className="font-medium text-indigo-600 hover:text-indigo-500"
             >
               Back to Login

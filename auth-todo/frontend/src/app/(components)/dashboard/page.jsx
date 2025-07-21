@@ -22,7 +22,7 @@ const DashboardPage = () => {
   const checkAuth = () => {
     const userData = localStorage.getItem("user");
     if (!userData) {
-      router.push("/components/auth/login");
+      router.push("/login");
       return;
     }
     setUser(JSON.parse(userData));
@@ -35,7 +35,7 @@ const DashboardPage = () => {
     } catch (error) {
       if (error.response?.status === 401) {
         localStorage.removeItem("user");
-        router.push("/components/auth/login");
+        router.push("/login");
       } else {
         setError("Failed to fetch todos");
       }
@@ -98,12 +98,12 @@ const DashboardPage = () => {
       await axiosInstance.get("/auth/logout");
       localStorage.removeItem("user");
       localStorage.removeItem("token");
-      router.push("/components/auth/login");
+      router.push("/login");
     } catch (error) {
       // Still redirect even if logout fails
       localStorage.removeItem("user");
       localStorage.removeItem("token");
-      router.push("/components/auth/login");
+      router.push("/login");
     }
   };
 
