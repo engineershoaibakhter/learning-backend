@@ -135,7 +135,7 @@ const DashboardPage = () => {
               </div>
               <button
                 onClick={handleLogout}
-                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition duration-150 ease-in-out"
+                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition duration-150 ease-in-out cursor-pointer"
               >
                 Logout
               </button>
@@ -275,14 +275,15 @@ const DashboardPage = () => {
                           <div className="flex space-x-2 ml-4">
                             <button
                               onClick={() => setEditingTodo(todo._id)}
-                              className="text-indigo-600 hover:text-indigo-900 text-sm font-medium"
+                              className="text-indigo-600 hover:text-indigo-900 text-sm font-medium cursor-pointer"
                             >
                               Edit
                             </button>
-                            {user?.role === "admin" && (
+                            {(user?.role === "admin" ||
+                              user?.role === "sub-admin") && (
                               <button
                                 onClick={() => handleDeleteTodo(todo._id)}
-                                className="text-red-600 hover:text-red-900 text-sm font-medium"
+                                className="text-red-600 hover:text-red-900 text-sm font-medium cursor-pointer"
                               >
                                 Delete
                               </button>
