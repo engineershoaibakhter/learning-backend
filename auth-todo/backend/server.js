@@ -22,6 +22,11 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
+// Root route for health check
+app.get('/', (req, res) => {
+  res.json({ message: 'Auth Todo API is running on Vercel!' });
+});
+
 app.use('/api/auth',authRoute);
 app.use('/api/todos',todoRoute);
 
