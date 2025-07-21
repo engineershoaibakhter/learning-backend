@@ -4,9 +4,13 @@ const jwt = require("jsonwebtoken");
 const crypto=require('crypto')
 const sendEmail=require('../utils/sendEmail')
 const generateToken = require("../utils/generateToken");
+const connectDB = require("../config/db");
 
 const register = async (req, res) => {
   try {
+    // Ensure database connection for serverless
+    await connectDB();
+    
     const { name, email, password, role } = req.body;
     console.log(`name ${name} and email ${email} and password ${password} and role ${role} `)
 
@@ -39,6 +43,9 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
+    // Ensure database connection for serverless
+    await connectDB();
+    
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
@@ -69,6 +76,9 @@ const logout=(req,res)=>{
 const forgotPassword=async (req,res)=>{
   const {email}=req.body;
   try {
+    // Ensure database connection for serverless
+    await connectDB();
+    
     const user=await User.findOne({email});
     console.log("user: ",user)
     if(!user) return res.status(400).json({message:"User not found"});
@@ -92,13 +102,13 @@ const forgotPassword=async (req,res)=>{
 
 const resetPassword=async (req,res)=>{
   const {token,password}=req.body;
-    //   let token=
-    // req.cookie.token 
-    // || req.headers.authorization?.split(" ")[1];
 
   console.log("token: ",token);
 
   try {
+    // Ensure database connection for serverless
+    await connectDB();
+    
     const user=await User.findOne({
       resetToken:token,
       resetTokenExpires:{$gt:Date.now()},
