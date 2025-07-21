@@ -49,7 +49,7 @@ const ResetPasswordPage = () => {
       setSuccess("Password reset successful! Redirecting to login...");
 
       setTimeout(() => {
-        router.push("/components/auth/login");
+        router.push("/login");
       }, 2000);
     } catch (error) {
       setError(
@@ -163,7 +163,7 @@ const ResetPasswordPage = () => {
 
           <div className="text-center">
             <Link
-              href="/components/auth/login"
+              href="/login"
               className="font-medium text-indigo-600 hover:text-indigo-500"
             >
               Back to Login

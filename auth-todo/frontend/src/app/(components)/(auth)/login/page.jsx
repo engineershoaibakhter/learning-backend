@@ -39,7 +39,7 @@ const LoginPage = () => {
       localStorage.setItem("token", JSON.stringify(response.data.token));
 
       setTimeout(() => {
-        router.push("/components/dashboard");
+        router.push("/dashboard");
       }, 1500);
     } catch (error) {
       setError(error.response?.data?.message || "Login failed");
@@ -58,7 +58,7 @@ const LoginPage = () => {
           <p className="mt-2 text-center text-sm text-gray-600">
             Or{" "}
             <Link
-              href="/components/auth/register"
+              href="/register"
               className="font-medium text-indigo-600 hover:text-indigo-500"
             >
               create a new account
@@ -108,7 +108,7 @@ const LoginPage = () => {
           <div className="flex items-center justify-between">
             <div className="text-sm">
               <Link
-                href="/components/auth/forgot-password"
+                href="/forgot-password"
                 className="font-medium text-indigo-600 hover:text-indigo-500"
               >
                 Forgot your password?

@@ -41,7 +41,7 @@ const RegisterPage = () => {
       // localStorage.setItem("token", JSON.stringify(response.data.user));
 
       setTimeout(() => {
-        router.push("/components/dashboard");
+        router.push("/dashboard");
       }, 1500);
     } catch (error) {
       setError(error.response?.data?.message || "Registration failed");
@@ -60,7 +60,7 @@ const RegisterPage = () => {
           <p className="mt-2 text-center text-sm text-gray-600">
             Or{" "}
             <Link
-              href="/components/auth/login"
+              href="/login"
               className="font-medium text-indigo-600 hover:text-indigo-500"
             >
               sign in to your existing account
