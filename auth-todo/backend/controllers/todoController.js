@@ -37,8 +37,6 @@ const updateTodo=async (req,res)=>{
     // Ensure database connection for serverless
     await connectDB();
     
-    console.log("req: ",req.params)
-    console.log("req: ",req.user)
     const todo=await Todo.findOneAndUpdate(
       {_id:req.params.id,user:req.user._id},
       req.body,
